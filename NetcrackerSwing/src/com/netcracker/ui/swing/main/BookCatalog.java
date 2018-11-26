@@ -1,14 +1,13 @@
-package com.netcracker.ui.swing;
+package com.netcracker.ui.swing.main;
 
-import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-import java.awt.*;
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import com.netcracker.ui.swing.Book;
+
+import com.netcracker.ui.swing.main.Author;
+import com.netcracker.ui.swing.main.Book;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,7 +16,7 @@ import org.json.simple.parser.ParseException;
 
 public class BookCatalog extends AbstractTableModel {
     private List<Book> bookList = new ArrayList<>();
-    private String filePath = "./books.json";
+    private String filePath = "newBooks.json";
 
     public BookCatalog() {
         this.bookList.add(new Book("", new Author("", "", ""), 0));

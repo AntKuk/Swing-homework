@@ -1,4 +1,4 @@
-package com.netcracker.ui.swing;
+package com.netcracker.ui.swing.main;
 
 import java.util.Objects;
 

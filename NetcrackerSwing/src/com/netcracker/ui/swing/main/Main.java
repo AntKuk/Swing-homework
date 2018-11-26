@@ -1,4 +1,7 @@
-package com.netcracker.ui.swing;
+package com.netcracker.ui.swing.main;
+
+import com.netcracker.ui.swing.listener.AddBookListener;
+import com.netcracker.ui.swing.listener.ChangeBookListener;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -15,7 +18,7 @@ public class Main extends JFrame implements AddEntry {
     public Main() {
         super("Book Catalog");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 500);
+        setSize(1400, 500);
 
         bCatalog = new BookCatalog();
 
@@ -42,7 +45,6 @@ public class Main extends JFrame implements AddEntry {
             }
         });
 
-
         //Creating Table
         JTable table = new JTable(bCatalog);
         JScrollPane jsp = new JScrollPane(table);
@@ -56,22 +58,22 @@ public class Main extends JFrame implements AddEntry {
         eastGrid.setMinimumSize(new Dimension(100,100));
         eastGrid.setMaximumSize(new Dimension(500,100));
 
-        JTextArea jta = new JTextArea("Hello there. It's a book catalog!");
+        JTextArea jta = new JTextArea("Hello there.\nIt's a book catalog!");
+        jta.setLineWrap(true);
+        jta.setWrapStyleWord(true);
+        jta.setFont(jta.getFont().deriveFont(20.0f));
+        eastGrid.add(jta);
+
+        //Add-button
         JButton jbtnAdd = new JButton("Add book");
         jbtnAdd.addActionListener(new AddBookListener(this));
-        eastGrid.add(jta);
         eastGrid.add(jbtnAdd);
 
         //Change-button
         JButton jbtnChange = new JButton("Change book");
-        jbtnChange.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int index = table.getSelectedRow();
-                new ChangeBookWindow(bCatalog, index);
-            }
-        });
+        jbtnChange.addActionListener(new ChangeBookListener(table, bCatalog));
         eastGrid.add(jbtnChange);
+
 
         //Delete-button
         JButton jbtnDelete = new JButton("Delete book");

@@ -1,19 +1,15 @@
-package com.netcracker.ui.swing;
+package com.netcracker.ui.swing.listener;
+
+import com.netcracker.ui.swing.window.AddBookWindow;
+import com.netcracker.ui.swing.main.AddEntry;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AddBookListener implements ActionListener {
-    //BookCatalog bCatalog;
-    AddEntry addEntry;
-    //private List<Book> bookList;
-/*
-    public AddBookListener(BookCatalog bCatalog) {
-        this.bCatalog = bCatalog;
-        //this.bookList = bookList;
-    }
-*/
+    private AddEntry addEntry;
+
 
     public AddBookListener(AddEntry addEntry) {
         this.addEntry = addEntry;
