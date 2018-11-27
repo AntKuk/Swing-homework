@@ -39,10 +39,9 @@ public class BookCatalog extends AbstractTableModel {
         bookList.clear();
         this.filePath = filePath;
         JSONParser parser = new JSONParser();
-        try
+        try(FileReader in = new FileReader(filePath))
         {
-            //Object obj = parser.parse(new FileReader("./books.json"));
-            Object obj = parser.parse(new FileReader(filePath));
+            Object obj = parser.parse(in);
             JSONArray books = (JSONArray)obj;
             Iterator bookIterator = books.iterator();
             while(bookIterator.hasNext()) {
@@ -58,12 +57,17 @@ public class BookCatalog extends AbstractTableModel {
                 Book current = new Book(title, author, year);
                 current.setQty(qty);
                 this.bookList.add(current);
-
             }
         }
-        catch(FileNotFoundException ex){}
-        catch(IOException ex) {}
-        catch (ParseException ex) {}
+        catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         fireTableDataChanged();
 
@@ -89,6 +93,7 @@ public class BookCatalog extends AbstractTableModel {
         catch (IOException e) {
             e.printStackTrace();
         }
+        fireTableDataChanged();
     }
     @Override
     public int getColumnCount() {

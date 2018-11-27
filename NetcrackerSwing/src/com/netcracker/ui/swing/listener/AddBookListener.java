@@ -2,8 +2,8 @@ package com.netcracker.ui.swing.listener;
 
 import com.netcracker.ui.swing.window.AddBookWindow;
 import com.netcracker.ui.swing.main.AddEntry;
+import com.netcracker.ui.swing.window.AddWindow;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,11 +17,7 @@ public class AddBookListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new AddBookWindow(addEntry);
-            }
-        });
+        new AddWindow(addEntry);
+
     }
 }

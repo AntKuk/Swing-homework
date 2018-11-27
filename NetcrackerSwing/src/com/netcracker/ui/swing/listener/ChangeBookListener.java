@@ -12,6 +12,7 @@ public class ChangeBookListener implements ActionListener {
     private JTable table;
     private BookCatalog bCatalog;
 
+
     public ChangeBookListener(JTable table, BookCatalog bCatalog) {
         this.table = table;
         this.bCatalog = bCatalog;
@@ -20,6 +21,8 @@ public class ChangeBookListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         int index = table.getSelectedRow();
-        new ChangeBookWindow(bCatalog, index);
+        if(index != -1) {
+            new ChangeBookWindow(bCatalog, index);
+        }
     }
 }

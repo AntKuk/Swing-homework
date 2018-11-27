@@ -18,7 +18,7 @@ public class Main extends JFrame implements AddEntry {
     public Main() {
         super("Book Catalog");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1400, 500);
+        setSize(600, 400);
 
         bCatalog = new BookCatalog();
 
@@ -47,16 +47,16 @@ public class Main extends JFrame implements AddEntry {
 
         //Creating Table
         JTable table = new JTable(bCatalog);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane jsp = new JScrollPane(table);
         add(jsp, BorderLayout.CENTER);
 
         //Creating the right-side panel
-        JPanel eastGrid = new JPanel(new GridLayout(5,1, 5, 5));
+        JPanel eastGrid = new JPanel(new GridLayout(4,1, 10, 10));
+
 
         //Setting the size of the right panel
-        eastGrid.setPreferredSize(new Dimension(200,100));
-        eastGrid.setMinimumSize(new Dimension(100,100));
-        eastGrid.setMaximumSize(new Dimension(500,100));
+        eastGrid.setPreferredSize(new Dimension(150,300));
 
         JTextArea jta = new JTextArea("Hello there.\nIt's a book catalog!");
         jta.setLineWrap(true);

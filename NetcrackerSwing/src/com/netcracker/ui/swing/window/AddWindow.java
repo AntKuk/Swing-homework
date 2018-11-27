@@ -3,22 +3,24 @@ package com.netcracker.ui.swing.window;
 import com.netcracker.ui.swing.main.AddEntry;
 import com.netcracker.ui.swing.main.Author;
 import com.netcracker.ui.swing.main.Book;
+import com.netcracker.ui.swing.main.BookCatalog;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddBookWindow extends JFrame {
-    private AddEntry addEntry;
-    private float textSize = 45.0f;
+public class AddWindow extends JFrame {
+    BookCatalog bCatalog;
+    private String warning;
 
-    private JTextField tfTitle;
-    private JTextField tfAuthor;
-    private JTextField tfCountry;
+    JTextField tfTitle;
+    JTextField tfAuthor;
+    JTextField tfCountry;
     private JComboBox<String> jcbGender;
-    private JTextField tfYear;
-    private JTextField tfQty;
+    JTextField tfYear;
+    JTextField tfQty;
 
     private JLabel lbTitle;
     private JLabel lbAuthor;
@@ -27,61 +29,80 @@ public class AddBookWindow extends JFrame {
     private JLabel lbYear;
     private JLabel lbQty;
 
-    private JButton btnAdd;
-
-    private JTextArea jta;
+    JButton btnAdd;
 
 
-    public AddBookWindow(AddEntry addEntry) {
+    public AddWindow() {
         super("Add Book");
+        setLayout(null);
+        setSize(257,256);
 
-        this.addEntry = addEntry;
+        JPanel inputControls = new JPanel(new BorderLayout(5,5));
 
-        setSize(900, 700);
-        setLayout(new GridLayout(7,1));
+        JPanel inputLabels = new JPanel(new GridLayout(0,1,5,5));
+        JPanel inputFields = new JPanel(new GridLayout(0,1,5,5));
+        inputControls.add(inputLabels, BorderLayout.WEST);
+        inputControls.add(inputFields, BorderLayout.CENTER);
 
 
         lbTitle = new JLabel("Book name");
-        add(lbTitle);
+        inputLabels.add(lbTitle);
 
-        tfTitle = new JTextField();
-        add(tfTitle);
+        tfTitle = new JTextField(10);
+        inputFields.add(tfTitle);
 
         lbAuthor = new JLabel("Author name");
-        add(lbAuthor);
+        inputLabels.add(lbAuthor);
 
-        tfAuthor = new JTextField();
-        add(tfAuthor);
+        tfAuthor = new JTextField(10);
+        inputFields.add(tfAuthor);
 
         lbCountry = new JLabel("Author's country");
-        add(lbCountry);
+        inputLabels.add(lbCountry);
 
-        tfCountry = new JTextField();
-        add(tfCountry);
+        tfCountry = new JTextField(10);
+        inputFields.add(tfCountry);
 
         lbGender = new JLabel("Gender");
-        add(lbGender);
+        inputLabels.add(lbGender);
 
         jcbGender = new JComboBox<>();
         jcbGender.addItem("male");
         jcbGender.addItem("female");
-        add(jcbGender);
+        inputFields.add(jcbGender);
 
         lbYear = new JLabel("Year");
-        add(lbYear);
+        inputLabels.add(lbYear);
 
-        tfYear = new JTextField();
-        add(tfYear);
+        tfYear = new JTextField(10);
+        inputFields.add(tfYear);
 
         lbQty = new JLabel("Quantity");
-        add(lbQty);
+        inputLabels.add(lbQty);
 
-        tfQty = new JTextField();
-        add(tfQty);
+        tfQty = new JTextField(10);
+        inputFields.add(tfQty);
 
+        JPanel jpnlButton = new JPanel(new FlowLayout(FlowLayout.CENTER));
         btnAdd = new JButton("Add book!");
-        add(btnAdd);
+        jpnlButton.add(btnAdd);
 
+        JPanel gui = new JPanel(new BorderLayout(10,10));
+        gui.setBorder(new TitledBorder("Book information"));
+        gui.setBounds(10,10,237,206);
+        gui.add(inputControls, BorderLayout.CENTER);
+        gui.add(jpnlButton, BorderLayout.SOUTH);
+
+        add(gui);
+
+        setLocationByPlatform(true);
+        setVisible(true);
+
+    }
+
+
+    public AddWindow(AddEntry addEntry) {
+        this();
 
         btnAdd.addActionListener(new ActionListener() {
             @Override
@@ -91,20 +112,15 @@ public class AddBookWindow extends JFrame {
                     dispose();
                 }
                 else {
-                    JOptionPane.showMessageDialog(AddBookWindow.this, "Please, fill all fields correctly");
+                    JOptionPane.showMessageDialog(AddWindow.this, "Please, fill all fields correctly!\n" + warning);
                 }
             }
         });
 
-        jta = new JTextArea("");
-        add(jta);
-
-        setTextSize();
-
         setVisible(true);
     }
 
-    private boolean isFilled() {
+    boolean isFilled() {
         boolean result = true;
         StringBuilder str = new StringBuilder();
 
@@ -138,13 +154,13 @@ public class AddBookWindow extends JFrame {
             result = tfQty.getText().matches("[0-9]+");
         }
 
-        jta.setText(str.toString());
+        warning = str.toString();
         return result;
     }
 
 
 
-    private Book createBook() {
+    Book createBook() {
         Book result;
         String title = tfTitle.getText();
         String author = tfAuthor.getText();
@@ -178,27 +194,4 @@ public class AddBookWindow extends JFrame {
         this.tfQty.setBackground(Color.WHITE);
     }
 
-    private void setTextSize () {
-        lbTitle.setFont(lbTitle.getFont().deriveFont(this.textSize));
-        tfTitle.setFont(tfTitle.getFont().deriveFont(this.textSize));
-
-        lbAuthor.setFont(lbAuthor.getFont().deriveFont(this.textSize));
-        tfAuthor.setFont(tfAuthor.getFont().deriveFont(this.textSize));
-
-        lbCountry.setFont(lbCountry.getFont().deriveFont(this.textSize));
-        tfCountry.setFont(tfCountry.getFont().deriveFont(this.textSize));
-
-        lbGender.setFont(lbGender.getFont().deriveFont(this.textSize));
-        jcbGender.setFont(jcbGender.getFont().deriveFont(this.textSize));
-
-        lbYear.setFont(lbYear.getFont().deriveFont(this.textSize));
-        tfYear.setFont(tfYear.getFont().deriveFont(this.textSize));
-
-        lbQty.setFont(lbQty.getFont().deriveFont(this.textSize));
-        tfQty.setFont(tfQty.getFont().deriveFont(this.textSize));
-
-        btnAdd.setFont(btnAdd.getFont().deriveFont(this.textSize));
-
-        jta.setFont(btnAdd.getFont().deriveFont(15.0f));
-    }
 }
